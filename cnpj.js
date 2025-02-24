@@ -1,45 +1,54 @@
-function tipo(){
+function tipo() {
     //1 é matriz, 2 + é sede
+    //Devido a falta da função prompt no computador
+    //está sendo utilizado randomizador para informar se seria 
+    //uma matriz ou uma filial, para poder gerar alguns digitos
     let tipo = Math.floor(Math.random() * 2) + 1;
 
-    if(tipo === 1){
+    if (tipo === 1) {
         return '0001'
-    }else{
+    } else {
         return '0002'
     }
 }
 
 
-function gerarVerificador(contador, baseSeparada){
+function gerarVerificador(contador, baseSeparada) {
     let soma = 0;
     let resultado;
 
-    let fator = contador - 7;
+    //"fator" teria que reiniciar em um ponto, por isso não
+    //está sento utilizado direto no contador
 
+    let fator = contador - 7;
     for (let i = 0; i < contador; i++) {
-        if(fator == 1){
+        if (fator == 1) {
             fator = 9;
         }
-        
+
         soma += baseSeparada[i] * fator
-        
+
         fator--;
     }
     let resultado1 = soma % 11
-    if (resultado1 < 2){
+    if (resultado1 < 2) {
         resultado = 0
-        return resultado;
-    } else{
+    } else {
         resultado = 11 - resultado1
-        return resultado;
     }
+    return resultado;
 }
 
 
 
-function gerarBase(){
+function gerarBase() {
     let base = Math.floor(Math.random() * 100000000);
+    //Na fução 'toString()' teve um participação da IA, não sabia como que poderia
+    //criar qualquer numero que pudesse haver 8 digitos com 0's na frente.
     base = base.toString().padStart(8, '0');
+
+    //Dentre o processo de criação do CNPJ, faz diferença se for
+    //uma matriz ou uma filial, por isso a função tipo.
     let Filial_Matriz = tipo();
     base = base + Filial_Matriz
 
@@ -52,6 +61,6 @@ function gerarBase(){
 
     let cnpj = baseSeparada.join('');
 
-    console.log("Seu CNPJ completamente válido é '" + cnpj +"'")
+    console.log("Seu CNPJ completamente válido é '" + cnpj + "'")
 }
 gerarBase();
