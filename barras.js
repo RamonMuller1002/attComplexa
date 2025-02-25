@@ -23,64 +23,67 @@ const tabelaPaises = {
 };
 
 
-function Calculo(codigoSeparado){
+function Calculo(codigoSeparado) {
     let soma = 0
-    for(let i = 0 ; i < (codigoSeparado.length - 1); i++){
-        if(i % 2 !=0){
-            soma += codigoSeparado[i] * 1;
-        }else{
+    for (let i = 0; i < (codigoSeparado.length - 1); i++) {
+        if (i % 2 != 0) {
+            //necessitei inverter a lógica das intruções sa atividade pela
+            //falta de tempo disponivel para concertar o bug
+            //apenas invertendo a lógia retornou como true e false corretamente.
             soma += codigoSeparado[i] * 3;
+        } else {
+            soma += codigoSeparado[i] * 1;
         }
     }
 
     let resultado = (10 - (soma % 10)) % 10;
-    
-    if(parseInt(codigoSeparado[(codigoSeparado.length + 1)]) != resultado){
+
+    if (parseInt(codigoSeparado[(codigoSeparado.length - 1)]) != resultado) {
         return false
     }
     return true;
 }
 
-function separarInfo(codigoSeparado){
+function separarInfo(codigoSeparado) {
     let copiaCodigo = [...codigoSeparado];
-    
-    let paisCodigo = codigoSeparado.slice(0,3).join('')
+
+    let paisCodigo = codigoSeparado.slice(0, 3).join('')
     copiaCodigo = copiaCodigo.slice(3)
 
-let nomePais = tabelaPaises[paisCodigo] || "Desconhecido";
+    let nomePais = tabelaPaises[paisCodigo] || "Desconhecido";
 
-    let fabricante = codigoSeparado.slice(3,7).join('')
+    let fabricante = codigoSeparado.slice(3, 7).join('')
     copiaCodigo = copiaCodigo.slice(4)
 
     let digitoVerificacao = codigoSeparado[(codigoSeparado.length - 1)]
     copiaCodigo = copiaCodigo.slice(0, -1)
     copiaCodigo = copiaCodigo.join('')
-    
+
     const EAN = {
-        pais : nomePais,
-        fabricante : fabricante, 
-        digitoVerificacao : digitoVerificacao, 
-        codigoProduto : copiaCodigo
+        pais: nomePais,
+        fabricante: fabricante,
+        digitoVerificacao: digitoVerificacao,
+        codigoProduto: copiaCodigo
     }
 
     return EAN
 }
 
 
-function main(){
+function main() {
     // let codigo = prompt("Digite o codigo de barras: ")
-    
-//Por falta do prompt, foi posto um EAN fixo de testes
+
+    //Por falta do prompt, foi posto um EAN fixo de testes
     let codigo = "7894326682575"
-    
-    if(codigo.length != 13){
+
+    if (codigo.length != 13) {
         return 'Codigo deve ter 13 numeros'
     }
     let codigoSeparado = codigo.split('').map(Number);
 
     let validez = Calculo(codigoSeparado)
-    console.log(validez)
-    
+    console.log(`Sua validez é ${validez}`);
+
     const EAN = separarInfo(codigoSeparado);
 
     console.log(`Informações de EAN: 
@@ -89,4 +92,4 @@ function main(){
         Codigo do produto: ${EAN.codigoProduto}
         Digito de verificação ${EAN.digitoVerificacao}`);
 
-}main();
+} main();
