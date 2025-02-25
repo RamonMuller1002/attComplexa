@@ -1,3 +1,28 @@
+const tabelaPaises = {
+    "789": "Brasil",
+    "000": "EUA e Canadá",
+    "380": "Bulgária",
+    "383": "Eslovênia",
+    "385": "Croácia",
+    "387": "Bósnia-Herzegovina",
+    "400": "Alemanha",
+    "460": "Rússia",
+    "471": "Taiwan",
+    "474": "Estônia",
+    "475": "Letônia",
+    "477": "Lituânia",
+    "479": "Sri Lanka",
+    "480": "Filipinas",
+    "482": "Ucrânia",
+    "484": "Moldávia",
+    "485": "Armênia",
+    "486": "Geórgia",
+    "487": "Cazaquistão",
+    "489": "Hong Kong",
+    "490": "Japão"
+};
+
+
 function Calculo(codigoSeparado){
     let soma = 0
     for(let i = 0 ; i < (codigoSeparado.length - 1); i++){
@@ -19,8 +44,10 @@ function Calculo(codigoSeparado){
 function separarInfo(codigoSeparado){
     let copiaCodigo = [...codigoSeparado];
     
-    let pais = codigoSeparado.slice(0,3).join('')
+    let paisCodigo = codigoSeparado.slice(0,3).join('')
     copiaCodigo = copiaCodigo.slice(3)
+
+let nomePais = tabelaPaises[paisCodigo] || "Desconhecido";
 
     let fabricante = codigoSeparado.slice(3,7).join('')
     copiaCodigo = copiaCodigo.slice(4)
@@ -30,7 +57,7 @@ function separarInfo(codigoSeparado){
     copiaCodigo = copiaCodigo.join('')
     
     const EAN = {
-        pais : pais,
+        pais : nomePais,
         fabricante : fabricante, 
         digitoVerificacao : digitoVerificacao, 
         codigoProduto : copiaCodigo
@@ -43,8 +70,9 @@ function separarInfo(codigoSeparado){
 function main(){
     // let codigo = prompt("Digite o codigo de barras: ")
     
-
+//Por falta do prompt, foi posto um EAN fixo de testes
     let codigo = "7894326682575"
+    
     if(codigo.length != 13){
         return 'Codigo deve ter 13 numeros'
     }
