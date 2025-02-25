@@ -59,6 +59,8 @@ function gerarBase() {
     let verificador2 = gerarVerificador(13, baseSeparada);
     baseSeparada.push(verificador2);
 
+
+    //não conhecia a função join, tive que pesquisar
     let cnpj = baseSeparada.join('');
 
     console.log("Seu CNPJ completamente válido é '" + cnpj + "'")
